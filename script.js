@@ -589,6 +589,7 @@ function updateRankHUD() {
 function startWithDifficulty(diff) {
   gameState.difficulty = diff;
   rulesModal.classList.add('hidden');
+  document.getElementById('back-to-game-btn').classList.add('hidden');
   initGame();
 }
 
@@ -641,7 +642,17 @@ function restartGame() {
 function showDifficultySelect() {
   clearInterval(gameState.timerInterval);
   document.body.classList.remove('countdown-critical');
+  document.getElementById('back-to-game-btn').classList.remove('hidden');
   rulesModal.classList.remove('hidden');
+}
+
+function closeDifficultySelect() {
+  rulesModal.classList.add('hidden');
+  document.getElementById('back-to-game-btn').classList.add('hidden');
+  // Resume timer if game was in progress
+  if (gameState.timerStarted && gameState.matchedPairs < gameState.totalPairs) {
+    startTimer();
+  }
 }
 
 // ── Card Skins ──

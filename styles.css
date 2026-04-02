@@ -420,12 +420,15 @@ body {
   backdrop-filter: blur(8px);
 }
 
-#rules-modal.hidden {
+#rules-modal.hidden,
+#back-to-game-btn.hidden {
   display: none;
 }
 
 .rules-content {
   max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
   width: 90%;
   padding: 35px;
   background: rgba(10, 10, 25, 0.95);
@@ -550,6 +553,30 @@ body {
 .diff-btn[data-difficulty="hard"].active { border-color: #ff0055; box-shadow: 0 0 25px rgba(255, 0, 85, 0.5); background: rgba(255, 0, 85, 0.15); }
 .diff-btn[data-difficulty="extreme"]:hover,
 .diff-btn[data-difficulty="extreme"].active { border-color: #ff0000; box-shadow: 0 0 30px rgba(255, 0, 0, 0.6); background: rgba(255, 0, 0, 0.15); }
+
+#back-to-game-btn {
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+  background: transparent;
+  color: #00f3ff;
+  border: 2px solid #00f3ff;
+  padding: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+#back-to-game-btn:hover {
+  background: #00f3ff;
+  color: #000;
+  box-shadow: 0 0 20px #00f3ff;
+}
 
 /* ── HUD Difficulty Label ── */
 .hud-difficulty {
