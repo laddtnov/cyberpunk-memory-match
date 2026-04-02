@@ -7,11 +7,11 @@ const SoundEngine = {
     if (this.ctx) return;
     const AudioCtx = globalThis.AudioContext || globalThis.webkitAudioContext;
 
-    if (!AudioCtx) {
-      console.warn('[GE-776.AUDIO] AudioContext not supported');
-      this.ctx = null;
-    } else {
+    if (AudioCtx) {
       this.ctx = new AudioCtx();
+    } else {
+      console.warn('[Netrunner.AUDIO] AudioContext not supported');
+      this.ctx = null;
     }
   },
 
