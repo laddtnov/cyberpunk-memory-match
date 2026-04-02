@@ -12,6 +12,20 @@ A cyberpunk-themed memory card game built with vanilla HTML, CSS, and JavaScript
 - **CSS3** — 3D transforms, keyframe animations, Grid layout, `backdrop-filter`
 - **JavaScript (ES6+)** — DOM manipulation, game state management, Fisher-Yates shuffle
 
+## Screenshots
+
+| Mission Briefing | Game Board |
+|:---:|:---:|
+| ![Mission Briefing](screenshots/01-mission-briefing.png) | ![Game Board](screenshots/02-game-board.png) |
+
+| Gameplay | Mission Complete |
+|:---:|:---:|
+| ![Gameplay](screenshots/03-gameplay.png) | ![Mission Complete](screenshots/04-mission-complete.png) |
+
+| Mission Failed |
+|:---:|
+| ![Mission Failed](screenshots/05-mission-failed.png) |
+
 ## Features
 
 - **3 Difficulty Levels** — Easy (3x2), Medium (4x4), Hard (6x4)
