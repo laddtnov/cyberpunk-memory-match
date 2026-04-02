@@ -1,7 +1,7 @@
 # Cyberpunk Memory Match
 
 A cyberpunk-themed memory card game built with vanilla HTML, CSS, and JavaScript. Match pairs of sci-fi operatives before running out of moves.
-👉 **  https://laddtnov.github.io/cyberpunk-memory-match/**
+👉 **  https://netrunner.laddtnov.xyz/**
 
 ## Tech Stack
 
@@ -9,7 +9,7 @@ A cyberpunk-themed memory card game built with vanilla HTML, CSS, and JavaScript
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-**[Live Demo]( https://laddtnov.github.io/cyberpunk-memory-match/)** | 📁 **[Source Code]( https://laddtnov.github.io/cyberpunk-memory-match/)**
+**[Live Demo]( https://netrunner.laddtnov.xyz/)** | 📁 **[Source Code]( https://netrunner.laddtnov.xyz/)**
 
 - **HTML5** — Semantic markup, data attributes
 - **CSS3** — 3D transforms, keyframe animations, Grid layout, `backdrop-filter`
