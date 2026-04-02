@@ -5,7 +5,14 @@ const SoundEngine = {
 
   init() {
     if (this.ctx) return;
-    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const AudioCtx = globalThis.AudioContext || globalThis.webkitAudioContext;
+
+    if (!AudioCtx) {
+      console.warn('[GE-776.AUDIO] AudioContext not supported');
+      this.ctx = null;
+    } else {
+      this.ctx = new AudioCtx();
+    }
   },
 
   _shouldPlay() {
@@ -18,7 +25,10 @@ const SoundEngine = {
     const bufferSize = ctx.sampleRate * 0.05;
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+    // Non-cryptographic randomness is intentional here (audio noise generation)
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1; // NOSONAR
+    }
 
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
@@ -81,7 +91,7 @@ const SoundEngine = {
     if (!this._shouldPlay()) return;
     const ctx = this.ctx;
     const now = ctx.currentTime;
-    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5 E5 G5 C6
+    const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
 
     notes.forEach((freq, i) => {
       const osc = ctx.createOscillator();
@@ -114,7 +124,10 @@ const SoundEngine = {
     const bufferSize = ctx.sampleRate * 0.6;
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+    // Non-cryptographic randomness is intentional here (audio noise generation)
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1; // NOSONAR
+    }
 
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
@@ -214,7 +227,12 @@ function loadStats() {
   try {
     const saved = JSON.parse(localStorage.getItem('cyberpunk_match_stats'));
     if (saved) return { ...DEFAULT_STATS, ...saved };
-  } catch (e) { /* ignore */ }
+  } catch (e) {
+    console.warn('[Netrunner.ERROR]', {
+      message: e?.message,
+      stack: e?.stack
+    });
+  }
   return { ...DEFAULT_STATS };
 }
 
@@ -301,9 +319,15 @@ const rankXP = document.getElementById('rank-xp');
 const skinModal = document.getElementById('skin-modal');
 
 // ── Shuffle (Fisher-Yates) ──
+function secureRandomInt(max) {
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  return arr[0] % max;
+}
+
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = secureRandomInt(i + 1);
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
@@ -478,17 +502,19 @@ function winGame() {
   SoundEngine.win();
 
   // Check rank up
-  if (newRank.name !== oldRank.name) {
-    showRankUp(newRank.name, () => {
-      winOverlay.classList.remove('hidden');
-      spawnParticles();
-    });
-  } else {
+  if (newRank.name === oldRank.name) {
     setTimeout(() => {
       winOverlay.classList.remove('hidden');
       spawnParticles();
     }, 600);
+    updateRankHUD();
+    return;
   }
+
+  showRankUp(newRank.name, () => {
+    winOverlay.classList.remove('hidden');
+    spawnParticles();
+  });
 
   updateRankHUD();
 }
@@ -501,11 +527,16 @@ function spawnParticles() {
   for (let i = 0; i < 60; i++) {
     const p = document.createElement('div');
     p.classList.add('particle');
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    const left = Math.random() * 100;
-    const height = 8 + Math.random() * 20;
-    const delay = Math.random() * 2;
-    const duration = 1.5 + Math.random() * 2;
+    // Non-cryptographic randomness for UI color selection
+    const color = colors[Math.floor(Math.random() * colors.length)]; // NOSONAR
+    // Non-cryptographic randomness for UI positioning
+    const left = Math.random() * 100; // NOSONAR
+    // Non-cryptographic randomness for UI sizing
+    const height = 8 + Math.random() * 20; // NOSONAR
+    // Non-cryptographic randomness for UI timing
+    const delay = Math.random() * 2; // NOSONAR
+    // Non-cryptographic randomness for animation duration
+    const duration = 1.5 + Math.random() * 2; // NOSONAR
 
     p.style.cssText = `
       left: ${left}%;
@@ -690,10 +721,11 @@ function renderSkinModal() {
   grid.innerHTML = skins.map(skin => {
     const unlocked = playerStats.unlockedSkins.includes(skin.id);
     const active = playerStats.activeSkin === skin.id;
+    const isDisabled = !unlocked;
     return `
       <button class="skin-item ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''}"
               onclick="${unlocked ? `selectSkin('${skin.id}')` : ''}"
-              ${!unlocked ? 'disabled' : ''}>
+              ${isDisabled ? 'disabled' : ''}>
         <div class="skin-preview skin-preview-${skin.id}"></div>
         <span class="skin-name">${skin.name}</span>
         <span class="skin-desc">${unlocked ? skin.desc : 'Unlock at ' + skin.rank}</span>
