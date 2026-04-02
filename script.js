@@ -638,6 +638,12 @@ function restartGame() {
   initGame();
 }
 
+function showDifficultySelect() {
+  clearInterval(gameState.timerInterval);
+  document.body.classList.remove('countdown-critical');
+  rulesModal.classList.remove('hidden');
+}
+
 // ── Card Skins ──
 function applySkin(skinName) {
   board.classList.remove('skin-default', 'skin-hologram', 'skin-corrupted', 'skin-gold', 'skin-elite');
