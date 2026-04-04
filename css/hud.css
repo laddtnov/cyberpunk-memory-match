@@ -1,0 +1,120 @@
+/* ── Game HUD ── */
+.game-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 12px 20px;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-label {
+  font-size: 11px;
+  color: rgba(0, 243, 255, 0.6);
+  letter-spacing: 2px;
+}
+
+.hud-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00f3ff;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+#restart-btn {
+  background: transparent;
+  color: #ff0055;
+  border: 2px solid #ff0055;
+  padding: 8px 20px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}
+
+#restart-btn:hover {
+  background: #ff0055;
+  color: #000;
+  box-shadow: 0 0 20px #ff0055;
+}
+
+/* ── Rank HUD ── */
+.hud-rank {
+  gap: 2px;
+}
+
+.rank-value {
+  font-size: 14px !important;
+  letter-spacing: 2px;
+}
+
+.rank-bar {
+  width: 80px;
+  height: 4px;
+  background: rgba(0, 243, 255, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.rank-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: #00f3ff;
+  box-shadow: 0 0 6px #00f3ff;
+  transition: width 0.5s ease;
+  border-radius: 2px;
+}
+
+.rank-xp-text {
+  font-size: 9px;
+  color: rgba(0, 243, 255, 0.5);
+  letter-spacing: 1px;
+}
+
+/* ── HUD Difficulty Label ── */
+.hud-difficulty {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+.hud-difficulty:hover {
+  background: rgba(255, 0, 85, 0.1);
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}
+
+.hud-diff {
+  font-size: 14px;
+  color: #ff0055;
+  text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
+}
+
+/* ── Moves Limit Display ── */
+.moves-limit {
+  font-size: 14px;
+  color: rgba(255, 0, 85, 0.6);
+}
+
+.moves-warning .hud-value {
+  color: #ff0055;
+  animation: blink-text 0.8s steps(2) infinite;
+}

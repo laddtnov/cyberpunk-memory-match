@@ -1,0 +1,159 @@
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .cyber-table {
+    width: 95%;
+    padding: 20px;
+    max-width: 850px;
+  }
+
+  .card-symbol {
+    font-size: 32px;
+  }
+
+  .card-name {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .cyber-table {
+    padding: 15px 10px;
+    border-width: 2px;
+  }
+
+  #game-board {
+    gap: 10px;
+  }
+
+  #game-board.grid-hard,
+  #game-board.grid-extreme {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-extreme .card-symbol,
+  .grid-extreme .card-name,
+  .grid-extreme .card-back::before {
+    font-size: inherit;
+  }
+
+  .rules-content {
+    padding: 25px 20px;
+  }
+
+  .rules-title {
+    font-size: 22px;
+  }
+
+  .difficulty-select {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .game-hud {
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hud-value {
+    font-size: 18px;
+  }
+
+  .hud-label {
+    font-size: 9px;
+  }
+
+  #restart-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .card-symbol {
+    font-size: 28px;
+  }
+
+  .card-name {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .card-back::before {
+    font-size: 28px;
+  }
+
+  .controls {
+    top: 10px;
+    right: 10px;
+  }
+
+  #glitch-toggle,
+  #sound-toggle,
+  #skin-btn,
+  #collection-btn {
+    padding: 6px 10px;
+    font-size: 9px;
+  }
+
+  #skin-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skin-preview {
+    width: 40px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 480px) {
+  #game-board {
+    gap: 8px;
+  }
+
+  .card-symbol {
+    font-size: 22px;
+  }
+
+  .card-name {
+    font-size: 8px;
+  }
+
+  .card-back::before {
+    font-size: 22px;
+  }
+
+  .win-title {
+    font-size: 24px;
+  }
+
+  .win-stats {
+    font-size: 14px;
+  }
+
+  .rankup-name {
+    font-size: 32px;
+  }
+
+  #skin-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-inner {
+    transition: none !important;
+  }
+
+  .card.matched .card-inner,
+  .card.error .card-front,
+  .card:not(.flipped):not(.matched):hover .card-back::after {
+    animation: none !important;
+  }
+
+  .countdown-critical .cyber-table {
+    animation: none !important;
+  }
+}

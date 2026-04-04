@@ -5,7 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cyberpunk Memory Match</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/hud.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/skins.css">
+  <link rel="stylesheet" href="css/modals.css">
+  <link rel="stylesheet" href="css/overlays.css">
+  <link rel="stylesheet" href="css/controls.css">
+  <link rel="stylesheet" href="css/collections.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
@@ -60,6 +68,7 @@
     </button>
     <button id="sound-toggle" onclick="SoundEngine.toggle()">SOUND: ON</button>
     <button id="skin-btn" onclick="toggleSkinModal()">SKINS</button>
+    <button id="collection-btn" onclick="toggleCollectionModal()">COLLECTION</button>
   </div>
 
   <!-- Skin Selector Modal -->
@@ -69,6 +78,18 @@
       <div class="rules-divider"></div>
       <div id="skin-grid"></div>
       <button class="skin-close-btn" onclick="toggleSkinModal()">CLOSE</button>
+    </div>
+  </div>
+
+  <!-- Collection Modal -->
+  <div id="collection-modal" class="hidden">
+    <div class="collection-modal-content">
+      <h3 class="collection-modal-title">COLLECTION</h3>
+      <p class="collection-subtitle">RANK REWARD CARDS</p>
+      <div class="rules-divider"></div>
+      <p class="collection-count" id="collection-count">COLLECTED: <span>0</span> / 5</p>
+      <div id="collection-grid"></div>
+      <button class="collection-close-btn" onclick="toggleCollectionModal()">CLOSE</button>
     </div>
   </div>
 
@@ -131,7 +152,12 @@
       <div id="glitch-lines"></div>
     </div>
   </div>
-  <script src="script.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/rank.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/collections.js"></script>
+  <script src="js/ui.js"></script>
   <script>renderSkinModal();</script>
 </body>
 

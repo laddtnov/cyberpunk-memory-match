@@ -1,0 +1,48 @@
+// ── Character Data ──
+const characters = [
+  { id: 'netrunner', symbol: '>_',  name: 'NETRUNNER',  color: 'cyan' },
+  { id: 'android',   symbol: '[AI]', name: 'ANDROID',   color: 'pink' },
+  { id: 'mech',      symbol: '\u2699',   name: 'MECH PILOT', color: 'cyan' },
+  { id: 'ghost',     symbol: '\u25CA',   name: 'GHOST',      color: 'pink' },
+  { id: 'samurai',   symbol: '\u5200',   name: 'SAMURAI',   color: 'cyan' },
+  { id: 'medic',     symbol: '+',   name: 'MEDIC',      color: 'pink' },
+  { id: 'sniper',    symbol: '\u25CE',   name: 'SNIPER',    color: 'cyan' },
+  { id: 'virus',     symbol: '\u2318',   name: 'VIRUS',     color: 'pink' },
+  { id: 'phantom',   symbol: '\u25B3',   name: 'PHANTOM',   color: 'cyan' },
+  { id: 'cipher',    symbol: '{}',  name: 'CIPHER',    color: 'pink' },
+  { id: 'drone',     symbol: '\u2295',   name: 'DRONE',     color: 'cyan' },
+  { id: 'rogue',     symbol: '\u2726',   name: 'ROGUE',     color: 'pink' },
+  { id: 'hacker',    symbol: '\u2325',   name: 'HACKER',    color: 'cyan' },
+  { id: 'synth',     symbol: '\u266A',   name: 'SYNTH',     color: 'pink' },
+  { id: 'blade',     symbol: '\u2694',   name: 'BLADE',     color: 'cyan' },
+  { id: 'oracle',    symbol: '\u25C9',   name: 'ORACLE',    color: 'pink' },
+  { id: 'wraith',    symbol: '\u2620',   name: 'WRAITH',    color: 'cyan' },
+  { id: 'glitch',    symbol: '\u2588',   name: 'GLITCH',    color: 'pink' },
+];
+
+// ── Rank System ──
+const RANKS = [
+  { name: 'ROOKIE',          xp: 0,    skin: 'default' },
+  { name: 'AGENT',           xp: 100,  skin: 'hologram' },
+  { name: 'SPECIALIST',      xp: 300,  skin: 'corrupted' },
+  { name: 'GHOST',           xp: 600,  skin: 'gold' },
+  { name: 'NETRUNNER_ELITE', xp: 1000, skin: 'elite' },
+];
+
+const DEFAULT_STATS = {
+  xp: 0,
+  rank: 'ROOKIE',
+  gamesPlayed: 0,
+  gamesWon: 0,
+  bestTimes: { easy: null, medium: null, hard: null, extreme: null },
+  activeSkin: 'default',
+  unlockedSkins: ['default'],
+};
+
+// ── Difficulty Config ──
+const difficulties = {
+  easy:    { pairs: 3,  gridClass: 'grid-easy',    label: 'EASY',    maxMoves: 10 },
+  medium:  { pairs: 8,  gridClass: 'grid-medium',  label: 'MEDIUM',  maxMoves: 30 },
+  hard:    { pairs: 12, gridClass: 'grid-hard',    label: 'HARD',    maxMoves: 40 },
+  extreme: { pairs: 18, gridClass: 'grid-extreme', label: 'EXTREME', maxMoves: 60, countdown: 60 },
+};

@@ -1,0 +1,54 @@
+/* ── Controls ── */
+.controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#glitch-toggle,
+#sound-toggle,
+#skin-btn,
+#collection-btn {
+  background: rgba(0, 0, 0, 0.8);
+  color: #00f3ff;
+  border: 2px solid #00f3ff;
+  padding: 8px 16px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+#glitch-toggle:hover,
+#sound-toggle:hover,
+#skin-btn:hover,
+#collection-btn:hover {
+  background: #00f3ff;
+  color: #000;
+  box-shadow: 0 0 20px #00f3ff;
+}
+
+/* ── Safe Mode ── */
+.safe-mode .card-inner,
+.safe-mode .card-back,
+.safe-mode .card-front,
+.safe-mode .card-back::after {
+  animation: none !important;
+  transition: transform 0.3s ease !important;
+}
+
+.safe-mode .card:not(.flipped):not(.matched):hover .card-back::after {
+  display: none !important;
+}
+
+.safe-mode #glitch-toggle {
+  color: #ff0055;
+  border-color: #ff0055;
+}
