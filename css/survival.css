@@ -1,0 +1,286 @@
+/* ── Survival HUD Bar ── */
+#survival-hud {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 8px 16px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 0, 85, 0.4);
+  border-radius: 6px;
+  background: rgba(255, 0, 85, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+#survival-hud.hidden {
+  display: none;
+}
+
+.survival-hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.survival-hud-label {
+  font-size: 9px;
+  color: rgba(255, 0, 85, 0.6);
+  letter-spacing: 2px;
+}
+
+.survival-hud-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff0055;
+  text-shadow: 0 0 8px rgba(255, 0, 85, 0.5);
+}
+
+/* ── Hearts ── */
+#survival-lives {
+  display: flex;
+  gap: 4px;
+}
+
+.survival-heart {
+  font-size: 20px;
+  color: #ff0055;
+  text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
+  transition: all 0.3s ease;
+}
+
+.survival-heart.lost {
+  color: rgba(255, 0, 85, 0.2);
+  text-shadow: none;
+  transform: scale(0.8);
+}
+
+/* ── Survival Mode Body Styles ── */
+body.survival-mode .game-hud {
+  border-color: rgba(255, 0, 85, 0.4);
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.15);
+}
+
+body.survival-mode .hud-diff {
+  color: #ff0055;
+  text-shadow: 0 0 8px rgba(255, 0, 85, 0.5);
+}
+
+/* ── Wave Clear Overlay ── */
+#wave-clear-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 20, 0, 0.9);
+  border-radius: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  animation: wave-clear-flash 0.4s ease-out;
+}
+
+#wave-clear-overlay.hidden {
+  display: none;
+}
+
+@keyframes wave-clear-flash {
+  0% { background: rgba(0, 255, 136, 0.3); }
+  100% { background: rgba(0, 20, 0, 0.9); }
+}
+
+.wave-clear-content {
+  text-align: center;
+}
+
+.wave-clear-label {
+  font-size: 14px;
+  color: rgba(0, 255, 136, 0.6);
+  letter-spacing: 6px;
+  margin-bottom: 8px;
+}
+
+.wave-clear-num {
+  font-size: 64px;
+  font-weight: bold;
+  color: #00ff88;
+  letter-spacing: 4px;
+  text-shadow:
+    0 0 30px rgba(0, 255, 136, 1),
+    0 0 60px rgba(0, 255, 136, 0.6);
+  animation: wave-num-pulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes wave-num-pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.wave-clear-points {
+  font-size: 20px;
+  color: #00f3ff;
+  letter-spacing: 3px;
+  margin-top: 10px;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.wave-clear-next {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 3px;
+  margin-top: 12px;
+}
+
+/* ── Survival Game Over Overlay ── */
+#survival-over-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(20, 0, 0, 0.92);
+  border-radius: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+  animation: lose-flash 0.5s ease-out;
+}
+
+#survival-over-overlay.hidden {
+  display: none;
+}
+
+.survival-over-content {
+  text-align: center;
+}
+
+.survival-over-title {
+  font-size: 32px;
+  color: #ff0055;
+  text-shadow:
+    0 0 20px rgba(255, 0, 85, 0.8),
+    0 0 40px rgba(255, 0, 0, 0.6);
+  margin-bottom: 6px;
+  letter-spacing: 4px;
+}
+
+.survival-over-subtitle {
+  font-size: 12px;
+  color: rgba(255, 0, 0, 0.6);
+  letter-spacing: 6px;
+  margin-bottom: 20px;
+  animation: blink-text 1s steps(2) infinite;
+}
+
+.survival-over-stats {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 2.2;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.survival-over-stats span {
+  color: #00f3ff;
+  font-weight: bold;
+}
+
+.survival-over-best {
+  font-size: 13px;
+  color: #ffff00;
+  text-shadow: 0 0 8px rgba(255, 255, 0, 0.4);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.survival-over-xp {
+  font-size: 18px;
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.survival-over-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+#survival-retry-btn {
+  background: transparent;
+  color: #ff0055;
+  border: 2px solid #ff0055;
+  padding: 12px 24px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(255, 0, 85, 0.3);
+}
+
+#survival-retry-btn:hover {
+  background: #ff0055;
+  color: #000;
+  box-shadow: 0 0 25px #ff0055;
+}
+
+#survival-exit-btn {
+  background: transparent;
+  color: #00f3ff;
+  border: 2px solid #00f3ff;
+  padding: 12px 24px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+}
+
+#survival-exit-btn:hover {
+  background: #00f3ff;
+  color: #000;
+  box-shadow: 0 0 25px #00f3ff;
+}
+
+/* ── Survival Button in Mission Briefing ── */
+#survival-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  background: rgba(255, 0, 85, 0.08);
+  color: #ff0055;
+  border: 2px solid #ff0055;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(255, 0, 85, 0.3);
+  border-radius: 6px;
+}
+
+#survival-btn:hover {
+  background: #ff0055;
+  color: #000;
+  box-shadow: 0 0 25px #ff0055;
+}
+
+.survival-btn-desc {
+  display: block;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+  margin-top: 4px;
+  font-weight: normal;
+}

@@ -14,6 +14,11 @@ const gameState = {
   mode: 'classic',
   combo: 0,
   maxCombo: 0,
+  // Survival mode
+  survivalWave: 0,
+  survivalLives: 3,
+  survivalScore: 0,
+  survivalLoop: 0,
 };
 
 // ── Player Stats (loaded from localStorage) ──
@@ -141,20 +146,36 @@ function checkMatch() {
     card1.classList.add('error');
     card2.classList.add('error');
 
+    // Survival mode: lose a life on mismatch
+    if (gameState.mode === 'survival') {
+      gameState.survivalLives--;
+      updateSurvivalHUD();
+      if (gameState.survivalLives <= 0) {
+        setTimeout(() => {
+          card1.classList.remove('flipped', 'error');
+          card2.classList.remove('flipped', 'error');
+          gameState.flippedCards = [];
+          gameState.isLocked = false;
+          loseSurvival();
+        }, 1000);
+        return;
+      }
+    }
+
     setTimeout(() => {
       card1.classList.remove('flipped', 'error');
       card2.classList.remove('flipped', 'error');
       gameState.flippedCards = [];
       gameState.isLocked = false;
 
-      if (gameState.moves >= gameState.maxMoves) {
+      if (gameState.mode !== 'survival' && gameState.moves >= gameState.maxMoves) {
         loseGame();
       }
     }, 1000);
     return;
   }
 
-  if (gameState.moves >= gameState.maxMoves) {
+  if (gameState.mode !== 'survival' && gameState.moves >= gameState.maxMoves) {
     loseGame();
   }
 }
@@ -204,6 +225,12 @@ function formatTime(totalSeconds) {
 function winGame() {
   clearInterval(gameState.timerInterval);
   document.body.classList.remove('countdown-critical');
+
+  // Survival mode: advance to next wave instead of showing win screen
+  if (gameState.mode === 'survival') {
+    winSurvivalWave();
+    return;
+  }
 
   hideCombo();
   const xpEarned = calculateXP(gameState.difficulty, gameState.moves, gameState.maxMoves, gameState.seconds, true, gameState.maxCombo);
@@ -301,6 +328,12 @@ function loseGame(timeExpired = false) {
   clearInterval(gameState.timerInterval);
   gameState.isLocked = true;
   document.body.classList.remove('countdown-critical');
+
+  // Survival mode: redirect to survival game over
+  if (gameState.mode === 'survival') {
+    loseSurvival();
+    return;
+  }
 
   const xpEarned = calculateXP(gameState.difficulty, gameState.moves, gameState.maxMoves, gameState.seconds, false);
   playerStats.xp += xpEarned;

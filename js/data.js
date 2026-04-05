@@ -38,6 +38,8 @@ const DEFAULT_STATS = {
   winsPerDifficulty: { easy: 0, medium: 0, hard: 0, extreme: 0 },
   bestCombo: 0,
   totalMatches: 0,
+  bestWave: 0,
+  bestSurvivalScore: 0,
   activeTheme: 'cyber',
   activeSoundTheme: 'cyber',
   activeSkin: 'default',
@@ -58,4 +60,12 @@ const BLITZ_CONFIG = {
   medium:  { countdown: 35, maxMoves: 999 },
   hard:    { countdown: 50, maxMoves: 999 },
   extreme: { countdown: 30, maxMoves: 999 },
+};
+
+// ── Survival Mode Config ──
+const SURVIVAL_WAVES = ['easy', 'medium', 'hard', 'extreme'];
+const SURVIVAL_CONFIG = {
+  startLives: 3,
+  // After completing all 4 difficulties, loop with countdown pressure
+  loopCountdowns: [0, 60, 45, 30],  // seconds per loop iteration (0 = first loop, no timer)
 };

@@ -97,6 +97,8 @@ function updateBlitzTimers() {
 
 // ── Start with Difficulty (from modal) ──
 function startWithDifficulty(diff) {
+  // Ensure we're not in survival mode when picking a standard difficulty
+  if (gameState.mode === 'survival') gameState.mode = 'classic';
   gameState.difficulty = diff;
   rulesModal.classList.add('hidden');
   document.getElementById('back-to-game-btn').classList.add('hidden');
@@ -123,6 +125,10 @@ function initGame() {
   clearInterval(gameState.timerInterval);
   document.body.classList.remove('countdown-critical');
   document.body.classList.toggle('blitz-mode', isBlitz);
+  document.body.classList.remove('survival-mode');
+  document.getElementById('survival-hud').classList.add('hidden');
+  document.getElementById('wave-clear-overlay').classList.add('hidden');
+  document.getElementById('survival-over-overlay').classList.add('hidden');
 
   movesDisplay.childNodes[0].textContent = '0';
   movesLimit.textContent = isBlitz ? '' : '/' + config.maxMoves;
