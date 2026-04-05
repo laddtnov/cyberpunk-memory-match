@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/donations.css">
   <link rel="stylesheet" href="css/themes.css">
   <link rel="stylesheet" href="css/konami.css">
+  <link rel="stylesheet" href="css/sound-themes.css">
   <link rel="stylesheet" href="css/collections.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -88,6 +89,7 @@
     <button id="achievement-btn" onclick="toggleAchievementModal()">ACHIEVEMENTS</button>
     <button id="dossier-btn" onclick="toggleDossierModal()">DOSSIER</button>
     <button id="theme-btn" onclick="toggleThemeModal()">THEMES</button>
+    <button id="sound-theme-btn" onclick="toggleSoundThemeModal()">SOUNDS</button>
     <button id="donate-btn" onclick="toggleDonateModal()">DONATE</button>
   </div>
 
@@ -166,6 +168,16 @@
       <div class="rules-divider"></div>
       <div id="theme-grid"></div>
       <button class="theme-close-btn" onclick="toggleThemeModal()">CLOSE</button>
+    </div>
+  </div>
+
+  <!-- Sound Theme Modal -->
+  <div id="sound-theme-modal" class="hidden">
+    <div class="sound-theme-modal-content">
+      <h3 class="sound-theme-modal-title">SOUND THEMES</h3>
+      <div class="rules-divider"></div>
+      <div id="sound-theme-grid"></div>
+      <button class="sound-theme-close-btn" onclick="toggleSoundThemeModal()">CLOSE</button>
     </div>
   </div>
 
@@ -321,6 +333,7 @@
   <script src="js/game.js"></script>
   <script src="js/collections.js"></script>
   <script src="js/dossier.js"></script>
+  <script src="js/sound-themes.js"></script>
   <script src="js/konami.js"></script>
   <script src="js/share.js"></script>
   <script src="js/themes.js"></script>

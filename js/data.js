@@ -39,6 +39,7 @@ const DEFAULT_STATS = {
   bestCombo: 0,
   totalMatches: 0,
   activeTheme: 'cyber',
+  activeSoundTheme: 'cyber',
   activeSkin: 'default',
   unlockedSkins: ['default'],
 };
