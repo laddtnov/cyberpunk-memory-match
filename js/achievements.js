@@ -95,10 +95,12 @@ function showAchievementPopup(achievements) {
     popup.querySelector('.achievement-symbol').textContent = ach.symbol;
     popup.querySelector('.achievement-name').textContent = ach.name;
     popup.querySelector('.achievement-desc').textContent = ach.desc;
-    popup.classList.remove('hidden');
-    popup.classList.remove('achievement-slide');
-    void popup.offsetWidth;
-    popup.classList.add('achievement-slide');
+    popup.classList.remove('hidden', 'achievement-slide');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        popup.classList.add('achievement-slide');
+      });
+    });
     idx++;
     setTimeout(showNext, 2500);
   }

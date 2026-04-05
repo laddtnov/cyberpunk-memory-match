@@ -18,9 +18,11 @@ function showCombo(combo) {
   }
 
   el.classList.remove('hidden', 'combo-pop');
-  // Trigger reflow for re-animation
-  void el.offsetWidth;
-  el.classList.add('combo-pop');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      el.classList.add('combo-pop');
+    });
+  });
 }
 
 function hideCombo() {
@@ -201,7 +203,11 @@ function updateBestTimes() {
   ['easy', 'medium', 'hard', 'extreme'].forEach(d => {
     const el = document.getElementById('best-' + d);
     if (!el) return;
-    el.textContent = bt[d] != null ? 'BEST: ' + formatTime(bt[d]) : '';
+    if (bt[d] == null) {
+      el.textContent = '';
+      return;
+    }
+    el.textContent = 'BEST: ' + formatTime(bt[d]);
   });
 }
 

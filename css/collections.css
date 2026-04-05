@@ -153,7 +153,8 @@
 /* AGENT reward: SPECTER — purple infiltrator */
 .reward-card-specter {
   border-color: rgba(157, 0, 255, 0.5);
-  color: #9d00ff;
+  color: #c266ff;
+  text-shadow: 0 0 4px rgba(194, 102, 255, 0.4);
   background:
     radial-gradient(circle at 50% 30%, rgba(157, 0, 255, 0.08) 0%, transparent 60%),
     rgba(5, 5, 8, 0.95);
