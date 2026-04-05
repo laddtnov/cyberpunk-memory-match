@@ -293,7 +293,10 @@
           BEST COMBO: <span id="win-combo">0</span>x
         </p>
         <p class="win-xp" id="win-xp">+0 XP</p>
-        <button id="play-again-btn" onclick="restartGame()">PLAY AGAIN</button>
+        <div class="win-actions">
+          <button id="share-btn" onclick="shareResult()">SHARE</button>
+          <button id="play-again-btn" onclick="restartGame()">PLAY AGAIN</button>
+        </div>
       </div>
       <div id="particles"></div>
     </div>
@@ -317,6 +320,7 @@
   <script src="js/game.js"></script>
   <script src="js/collections.js"></script>
   <script src="js/dossier.js"></script>
+  <script src="js/share.js"></script>
   <script src="js/themes.js"></script>
   <script src="js/donations.js"></script>
   <script src="js/achievements.js"></script>
