@@ -51,3 +51,11 @@ const difficulties = {
   hard:    { pairs: 12, gridClass: 'grid-hard',    label: 'HARD',    maxMoves: 40 },
   extreme: { pairs: 18, gridClass: 'grid-extreme', label: 'EXTREME', maxMoves: 60, countdown: 60 },
 };
+
+// ── Blitz Mode Overrides ──
+const BLITZ_CONFIG = {
+  easy:    { countdown: 15, maxMoves: 999 },
+  medium:  { countdown: 35, maxMoves: 999 },
+  hard:    { countdown: 50, maxMoves: 999 },
+  extreme: { countdown: 30, maxMoves: 999 },
+};

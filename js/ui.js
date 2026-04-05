@@ -62,6 +62,39 @@ function updateRankHUD() {
   }
 }
 
+// ── Game Mode Toggle ──
+function setGameMode(mode) {
+  gameState.mode = mode;
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  const desc = document.getElementById('mode-desc');
+  if (desc) {
+    desc.textContent = mode === 'blitz'
+      ? 'Race the clock! Every difficulty has a countdown. No move limits.'
+      : 'Standard rules — limited moves, no timer (except EXTREME).';
+  }
+  // Update blitz countdown display on diff buttons
+  updateBlitzTimers();
+}
+
+function updateBlitzTimers() {
+  const isBlitz = gameState.mode === 'blitz';
+  ['easy', 'medium', 'hard', 'extreme'].forEach(d => {
+    const btn = document.querySelector(`.diff-btn[data-difficulty="${d}"]`);
+    if (!btn) return;
+    const desc = btn.querySelector('.diff-desc');
+    const base = difficulties[d];
+    if (isBlitz) {
+      desc.textContent = base.pairs * 2 + ' cards — ' + BLITZ_CONFIG[d].countdown + 's';
+    } else {
+      const label = base.gridClass.replace('grid-', '');
+      const cols = { easy: '3 x 2', medium: '4 x 4', hard: '4 x 6', extreme: '6 x 6' }[d];
+      desc.textContent = cols + ' — ' + base.pairs * 2 + ' cards' + (base.countdown ? ' — ' + base.countdown + 's' : '');
+    }
+  });
+}
+
 // ── Start with Difficulty (from modal) ──
 function startWithDifficulty(diff) {
   gameState.difficulty = diff;
@@ -73,27 +106,30 @@ function startWithDifficulty(diff) {
 // ── Init / Restart ──
 function initGame() {
   const config = difficulties[gameState.difficulty];
+  const isBlitz = gameState.mode === 'blitz';
+  const blitz = isBlitz ? BLITZ_CONFIG[gameState.difficulty] : null;
 
   gameState.flippedCards = [];
   gameState.matchedPairs = 0;
   gameState.totalPairs = config.pairs;
-  gameState.maxMoves = config.maxMoves;
+  gameState.maxMoves = blitz ? blitz.maxMoves : config.maxMoves;
   gameState.moves = 0;
   gameState.combo = 0;
   gameState.maxCombo = 0;
   gameState.seconds = 0;
-  gameState.countdown = config.countdown || 0;
+  gameState.countdown = blitz ? blitz.countdown : (config.countdown || 0);
   gameState.timerStarted = false;
   gameState.isLocked = false;
   clearInterval(gameState.timerInterval);
   document.body.classList.remove('countdown-critical');
+  document.body.classList.toggle('blitz-mode', isBlitz);
 
   movesDisplay.childNodes[0].textContent = '0';
-  movesLimit.textContent = '/' + config.maxMoves;
-  timerDisplay.textContent = config.countdown ? formatTime(config.countdown) : '00:00';
+  movesLimit.textContent = isBlitz ? '' : '/' + config.maxMoves;
+  timerDisplay.textContent = gameState.countdown ? formatTime(gameState.countdown) : '00:00';
   winOverlay.classList.add('hidden');
   loseOverlay.classList.add('hidden');
-  difficultyDisplay.textContent = config.label;
+  difficultyDisplay.textContent = (isBlitz ? 'BLITZ ' : '') + config.label;
   particles.innerHTML = '';
 
   const hudItem = movesDisplay.closest('.hud-item');

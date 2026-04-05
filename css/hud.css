@@ -118,3 +118,14 @@
   color: #ff0055;
   animation: blink-text 0.8s steps(2) infinite;
 }
+
+/* ── Blitz Mode ── */
+body.blitz-mode .game-hud {
+  border-color: rgba(255, 255, 0, 0.4);
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.15);
+}
+
+body.blitz-mode .hud-diff {
+  color: #ffff00;
+  text-shadow: 0 0 8px rgba(255, 255, 0, 0.5);
+}

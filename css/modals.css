@@ -83,6 +83,55 @@
   color: #00f3ff;
 }
 
+/* ── Game Mode Toggle ── */
+.mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.mode-btn {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.mode-btn.active[data-mode="classic"] {
+  color: #00f3ff;
+  border-color: #00f3ff;
+  background: rgba(0, 243, 255, 0.1);
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+}
+
+.mode-btn.active[data-mode="blitz"] {
+  color: #ffff00;
+  border-color: #ffff00;
+  background: rgba(255, 255, 0, 0.1);
+  box-shadow: 0 0 12px rgba(255, 255, 0, 0.3);
+  text-shadow: 0 0 8px rgba(255, 255, 0, 0.5);
+}
+
+.mode-desc {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+
 /* ── Difficulty Select ── */
 .difficulty-select {
   display: grid;

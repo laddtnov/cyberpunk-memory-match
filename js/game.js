@@ -11,6 +11,7 @@ const gameState = {
   timerStarted: false,
   isLocked: false,
   difficulty: 'medium',
+  mode: 'classic',
   combo: 0,
   maxCombo: 0,
 };
