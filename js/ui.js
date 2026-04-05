@@ -225,13 +225,37 @@ function renderSkinModal() {
 // ── Existing Features ──
 function toggleEffects() {
   const body = document.body;
-  const statusText = document.getElementById('status-text');
   body.classList.toggle('safe-mode');
-  statusText.innerText = body.classList.contains('safe-mode') ? 'SAFE MODE' : 'CYBER MODE';
+  const label = body.classList.contains('safe-mode') ? 'SAFE MODE' : 'CYBER MODE';
+  const dt = document.getElementById('status-text');
+  const mb = document.getElementById('status-text-mobile');
+  if (dt) dt.innerText = label;
+  if (mb) mb.innerText = label;
 }
 
 window.onblur = () => document.title = "SYSTEM ERROR...";
 window.onfocus = () => document.title = "Cyberpunk Memory Match";
+
+// ── Mobile Menu ──
+function toggleMenu() {
+  const overlay = document.getElementById('menu-overlay');
+  const btn = document.getElementById('menu-btn');
+  if (!overlay) return;
+  const isOpen = overlay.classList.contains('menu-open');
+  if (isOpen) {
+    overlay.classList.remove('menu-open');
+    overlay.classList.add('menu-closed');
+    btn.classList.remove('open');
+  } else {
+    overlay.classList.remove('menu-closed');
+    overlay.classList.add('menu-open');
+    btn.classList.add('open');
+  }
+}
+
+function closeMenuOnBackdrop(e) {
+  if (e.target === e.currentTarget) toggleMenu();
+}
 
 // ── Best Times on Difficulty Buttons ──
 function updateBestTimes() {

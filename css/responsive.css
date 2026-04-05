@@ -85,22 +85,17 @@
     font-size: 28px;
   }
 
+  /* Hide desktop controls, show hamburger menu */
   .controls {
-    top: 10px;
-    right: 10px;
+    display: none;
   }
 
-  #glitch-toggle,
-  #sound-toggle,
-  #skin-btn,
-  #collection-btn,
-  #achievement-btn,
-  #dossier-btn,
-  #theme-btn,
-  #sound-theme-btn,
-  #donate-btn {
-    padding: 6px 10px;
-    font-size: 9px;
+  #menu-btn {
+    display: flex;
+  }
+
+  #menu-overlay {
+    display: block;
   }
 
   #skin-grid {

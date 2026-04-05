@@ -1,4 +1,4 @@
-/* ── Controls ── */
+/* ── Controls (desktop) ── */
 .controls {
   position: fixed;
   top: 20px;
@@ -43,6 +43,188 @@
   background: #00f3ff;
   color: #000;
   box-shadow: 0 0 20px #00f3ff;
+}
+
+/* ── Mobile Menu Trigger ── */
+#menu-btn {
+  display: none;
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 300;
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #00f3ff;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+#menu-btn:hover {
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+}
+
+#menu-btn:active {
+  transform: scale(0.95);
+}
+
+.menu-icon {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #00f3ff;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 4px rgba(0, 243, 255, 0.5);
+}
+
+/* Animate hamburger → X when open */
+#menu-btn.open .menu-icon:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+#menu-btn.open .menu-icon:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+#menu-btn.open .menu-icon:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile Menu Overlay ── */
+#menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+#menu-overlay.menu-open {
+  opacity: 1;
+}
+
+#menu-overlay.menu-closed {
+  pointer-events: none;
+}
+
+/* ── Menu Panel (slides from right) ── */
+.menu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 280px;
+  max-width: 85vw;
+  height: 100%;
+  background: rgba(5, 5, 20, 0.95);
+  border-left: 2px solid rgba(0, 243, 255, 0.3);
+  padding: 60px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+#menu-overlay.menu-open .menu-panel {
+  transform: translateX(0);
+}
+
+/* ── Close Button ── */
+.menu-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #00f3ff;
+  font-size: 28px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-family: 'Courier New', monospace;
+}
+
+.menu-close-btn:hover {
+  color: #ff0055;
+  text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+}
+
+/* ── Menu Header ── */
+.menu-title {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #00f3ff;
+  letter-spacing: 4px;
+  text-align: center;
+  text-shadow: 0 0 12px rgba(0, 243, 255, 0.5);
+}
+
+.menu-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00f3ff, transparent);
+  margin: 8px 0 12px;
+}
+
+/* ── Menu Buttons ── */
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-item {
+  background: rgba(0, 0, 0, 0.5);
+  color: #00f3ff;
+  border: 1px solid rgba(0, 243, 255, 0.25);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover,
+.menu-item:active {
+  background: rgba(0, 243, 255, 0.1);
+  border-color: #00f3ff;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+}
+
+.menu-item-donate {
+  color: #00ff88;
+  border-color: rgba(0, 255, 136, 0.25);
+}
+
+.menu-item-donate:hover,
+.menu-item-donate:active {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: #00ff88;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
 }
 
 /* ── Safe Mode ── */
