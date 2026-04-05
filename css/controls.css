@@ -14,7 +14,8 @@
 #skin-btn,
 #collection-btn,
 #achievement-btn,
-#dossier-btn {
+#dossier-btn,
+#donate-btn {
   background: rgba(0, 0, 0, 0.8);
   color: #00f3ff;
   border: 2px solid #00f3ff;
@@ -33,7 +34,8 @@
 #skin-btn:hover,
 #collection-btn:hover,
 #achievement-btn:hover,
-#dossier-btn:hover {
+#dossier-btn:hover,
+#donate-btn:hover {
   background: #00f3ff;
   color: #000;
   box-shadow: 0 0 20px #00f3ff;
