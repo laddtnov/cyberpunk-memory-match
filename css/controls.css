@@ -15,6 +15,7 @@
 #collection-btn,
 #achievement-btn,
 #dossier-btn,
+#theme-btn,
 #donate-btn {
   background: rgba(0, 0, 0, 0.8);
   color: #00f3ff;
@@ -35,6 +36,7 @@
 #collection-btn:hover,
 #achievement-btn:hover,
 #dossier-btn:hover,
+#theme-btn:hover,
 #donate-btn:hover {
   background: #00f3ff;
   color: #000;

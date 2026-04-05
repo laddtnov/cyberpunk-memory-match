@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cybermatch-v4';
+const CACHE_NAME = 'cybermatch-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -15,6 +15,7 @@ const ASSETS = [
   './css/collections.css',
   './css/dossier.css',
   './css/donations.css',
+  './css/themes.css',
   './css/responsive.css',
   './js/sound.js',
   './js/data.js',
@@ -22,6 +23,7 @@ const ASSETS = [
   './js/game.js',
   './js/collections.js',
   './js/dossier.js',
+  './js/themes.js',
   './js/donations.js',
   './js/achievements.js',
   './js/ui.js',

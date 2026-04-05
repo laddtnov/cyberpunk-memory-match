@@ -38,6 +38,7 @@ const DEFAULT_STATS = {
   winsPerDifficulty: { easy: 0, medium: 0, hard: 0, extreme: 0 },
   bestCombo: 0,
   totalMatches: 0,
+  activeTheme: 'cyber',
   activeSkin: 'default',
   unlockedSkins: ['default'],
 };
