@@ -35,6 +35,9 @@ const DEFAULT_STATS = {
   gamesPlayed: 0,
   gamesWon: 0,
   bestTimes: { easy: null, medium: null, hard: null, extreme: null },
+  winsPerDifficulty: { easy: 0, medium: 0, hard: 0, extreme: 0 },
+  bestCombo: 0,
+  totalMatches: 0,
   activeSkin: 'default',
   unlockedSkins: ['default'],
 };

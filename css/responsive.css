@@ -94,7 +94,8 @@
   #sound-toggle,
   #skin-btn,
   #collection-btn,
-  #achievement-btn {
+  #achievement-btn,
+  #dossier-btn {
     padding: 6px 10px;
     font-size: 9px;
   }

@@ -13,7 +13,8 @@
 #sound-toggle,
 #skin-btn,
 #collection-btn,
-#achievement-btn {
+#achievement-btn,
+#dossier-btn {
   background: rgba(0, 0, 0, 0.8);
   color: #00f3ff;
   border: 2px solid #00f3ff;
@@ -31,7 +32,8 @@
 #sound-toggle:hover,
 #skin-btn:hover,
 #collection-btn:hover,
-#achievement-btn:hover {
+#achievement-btn:hover,
+#dossier-btn:hover {
   background: #00f3ff;
   color: #000;
   box-shadow: 0 0 20px #00f3ff;

@@ -144,6 +144,14 @@
 .diff-btn[data-difficulty="extreme"]:hover,
 .diff-btn[data-difficulty="extreme"].active { border-color: #ff0000; box-shadow: 0 0 30px rgba(255, 0, 0, 0.6); background: rgba(255, 0, 0, 0.15); }
 
+.diff-best {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: #00ff88;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.4);
+}
+
 #back-to-game-btn {
   display: block;
   width: 100%;

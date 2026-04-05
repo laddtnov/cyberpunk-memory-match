@@ -210,10 +210,16 @@ function winGame() {
   playerStats.xp += xpEarned;
   playerStats.gamesPlayed++;
   playerStats.gamesWon++;
+  playerStats.totalMatches = (playerStats.totalMatches || 0) + gameState.matchedPairs;
+  if (gameState.maxCombo > (playerStats.bestCombo || 0)) playerStats.bestCombo = gameState.maxCombo;
   playerStats.unlockedSkins = getUnlockedSkins(playerStats.xp);
 
-  // Best time tracking
+  // Per-difficulty win tracking
   const diff = gameState.difficulty;
+  if (!playerStats.winsPerDifficulty) playerStats.winsPerDifficulty = { easy: 0, medium: 0, hard: 0, extreme: 0 };
+  playerStats.winsPerDifficulty[diff] = (playerStats.winsPerDifficulty[diff] || 0) + 1;
+
+  // Best time tracking
   if (!playerStats.bestTimes[diff] || gameState.seconds < playerStats.bestTimes[diff]) {
     playerStats.bestTimes[diff] = gameState.seconds;
   }
@@ -298,6 +304,8 @@ function loseGame(timeExpired = false) {
   const xpEarned = calculateXP(gameState.difficulty, gameState.moves, gameState.maxMoves, gameState.seconds, false);
   playerStats.xp += xpEarned;
   playerStats.gamesPlayed++;
+  playerStats.totalMatches = (playerStats.totalMatches || 0) + gameState.matchedPairs;
+  if (gameState.maxCombo > (playerStats.bestCombo || 0)) playerStats.bestCombo = gameState.maxCombo;
   playerStats.unlockedSkins = getUnlockedSkins(playerStats.xp);
   playerStats.rank = getRankForXP(playerStats.xp).name;
   saveStats(playerStats);

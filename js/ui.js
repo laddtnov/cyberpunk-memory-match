@@ -124,6 +124,7 @@ function showDifficultySelect() {
   document.body.classList.remove('countdown-critical');
   document.getElementById('back-to-game-btn').classList.remove('hidden');
   rulesModal.classList.remove('hidden');
+  updateBestTimes();
 }
 
 function closeDifficultySelect() {
@@ -194,5 +195,16 @@ function toggleEffects() {
 window.onblur = () => document.title = "SYSTEM ERROR...";
 window.onfocus = () => document.title = "Cyberpunk Memory Match";
 
-// ── Init rank HUD on load ──
+// ── Best Times on Difficulty Buttons ──
+function updateBestTimes() {
+  const bt = playerStats.bestTimes || {};
+  ['easy', 'medium', 'hard', 'extreme'].forEach(d => {
+    const el = document.getElementById('best-' + d);
+    if (!el) return;
+    el.textContent = bt[d] != null ? 'BEST: ' + formatTime(bt[d]) : '';
+  });
+}
+
+// ── Init rank HUD + best times on load ──
 updateRankHUD();
+updateBestTimes();
