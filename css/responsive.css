@@ -93,7 +93,8 @@
   #glitch-toggle,
   #sound-toggle,
   #skin-btn,
-  #collection-btn {
+  #collection-btn,
+  #achievement-btn {
     padding: 6px 10px;
     font-size: 9px;
   }

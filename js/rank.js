@@ -30,12 +30,13 @@ function getNextRank(currentRankName) {
   return idx < RANKS.length - 1 ? RANKS[idx + 1] : null;
 }
 
-function calculateXP(difficulty, moves, maxMoves, seconds, won) {
+function calculateXP(difficulty, moves, maxMoves, seconds, won, maxCombo = 0) {
   if (!won) return 5;
   const base = { easy: 20, medium: 50, hard: 100, extreme: 200 };
   const moveBonus = Math.max(0, Math.floor((maxMoves - moves) / maxMoves * 50));
   const timeBonus = Math.max(0, 50 - Math.floor(seconds / 10));
-  return (base[difficulty] || 20) + moveBonus + timeBonus;
+  const comboBonus = maxCombo >= 2 ? maxCombo * 10 : 0;
+  return (base[difficulty] || 20) + moveBonus + timeBonus + comboBonus;
 }
 
 function getUnlockedSkins(xp) {

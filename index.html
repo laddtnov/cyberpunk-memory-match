@@ -4,6 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#00f3ff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CyberMatch">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <title>Cyberpunk Memory Match</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/hud.css">
@@ -12,6 +18,8 @@
   <link rel="stylesheet" href="css/modals.css">
   <link rel="stylesheet" href="css/overlays.css">
   <link rel="stylesheet" href="css/controls.css">
+  <link rel="stylesheet" href="css/combo.css">
+  <link rel="stylesheet" href="css/achievements.css">
   <link rel="stylesheet" href="css/collections.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -69,6 +77,7 @@
     <button id="sound-toggle" onclick="SoundEngine.toggle()">SOUND: ON</button>
     <button id="skin-btn" onclick="toggleSkinModal()">SKINS</button>
     <button id="collection-btn" onclick="toggleCollectionModal()">COLLECTION</button>
+    <button id="achievement-btn" onclick="toggleAchievementModal()">ACHIEVEMENTS</button>
   </div>
 
   <!-- Skin Selector Modal -->
@@ -78,6 +87,27 @@
       <div class="rules-divider"></div>
       <div id="skin-grid"></div>
       <button class="skin-close-btn" onclick="toggleSkinModal()">CLOSE</button>
+    </div>
+  </div>
+
+  <!-- Achievement Modal -->
+  <div id="achievement-modal" class="hidden">
+    <div class="achievement-modal-content">
+      <h3 class="achievement-modal-title">ACHIEVEMENTS</h3>
+      <div class="rules-divider"></div>
+      <p class="achievement-count" id="achievement-count">UNLOCKED: <span>0</span> / 6</p>
+      <div id="achievement-grid"></div>
+      <button class="achievement-close-btn" onclick="toggleAchievementModal()">CLOSE</button>
+    </div>
+  </div>
+
+  <!-- Achievement Popup -->
+  <div id="achievement-popup" class="hidden">
+    <span class="achievement-symbol"></span>
+    <div>
+      <div class="achievement-label">ACHIEVEMENT UNLOCKED</div>
+      <div class="achievement-name"></div>
+      <div class="achievement-desc"></div>
     </div>
   </div>
 
@@ -125,13 +155,15 @@
       </div>
       <button id="restart-btn" onclick="restartGame()">&#8635; RESTART</button>
     </div>
+    <div id="combo-display" class="hidden"></div>
     <main id="game-board"></main>
     <div id="win-overlay" class="hidden">
       <div class="win-content">
         <h2 class="win-title">MISSION COMPLETE</h2>
         <p class="win-stats">
           MOVES: <span id="win-moves">0</span><br>
-          TIME: <span id="win-time">00:00</span>
+          TIME: <span id="win-time">00:00</span><br>
+          BEST COMBO: <span id="win-combo">0</span>x
         </p>
         <p class="win-xp" id="win-xp">+0 XP</p>
         <button id="play-again-btn" onclick="restartGame()">PLAY AGAIN</button>
@@ -157,8 +189,14 @@
   <script src="js/rank.js"></script>
   <script src="js/game.js"></script>
   <script src="js/collections.js"></script>
+  <script src="js/achievements.js"></script>
   <script src="js/ui.js"></script>
   <script>renderSkinModal();</script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+  </script>
 </body>
 
 </html>

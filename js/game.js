@@ -11,6 +11,8 @@ const gameState = {
   timerStarted: false,
   isLocked: false,
   difficulty: 'medium',
+  combo: 0,
+  maxCombo: 0,
 };
 
 // ── Player Stats (loaded from localStorage) ──
@@ -121,6 +123,9 @@ function checkMatch() {
     card1.classList.add('matched');
     card2.classList.add('matched');
     gameState.matchedPairs++;
+    gameState.combo++;
+    if (gameState.combo > gameState.maxCombo) gameState.maxCombo = gameState.combo;
+    showCombo(gameState.combo);
     gameState.flippedCards = [];
     gameState.isLocked = false;
 
@@ -130,6 +135,8 @@ function checkMatch() {
     }
   } else {
     SoundEngine.error();
+    gameState.combo = 0;
+    hideCombo();
     card1.classList.add('error');
     card2.classList.add('error');
 
@@ -197,7 +204,8 @@ function winGame() {
   clearInterval(gameState.timerInterval);
   document.body.classList.remove('countdown-critical');
 
-  const xpEarned = calculateXP(gameState.difficulty, gameState.moves, gameState.maxMoves, gameState.seconds, true);
+  hideCombo();
+  const xpEarned = calculateXP(gameState.difficulty, gameState.moves, gameState.maxMoves, gameState.seconds, true, gameState.maxCombo);
   const oldRank = getRankForXP(playerStats.xp);
   playerStats.xp += xpEarned;
   playerStats.gamesPlayed++;
@@ -216,9 +224,20 @@ function winGame() {
 
   winMoves.textContent = gameState.moves;
   winTime.textContent = formatTime(gameState.seconds);
+  document.getElementById('win-combo').textContent = gameState.maxCombo;
   document.getElementById('win-xp').textContent = '+' + xpEarned + ' XP';
 
   SoundEngine.win();
+
+  // Check achievements
+  checkAchievements({
+    won: true,
+    moves: gameState.moves,
+    matchedPairs: gameState.matchedPairs,
+    seconds: gameState.seconds,
+    maxCombo: gameState.maxCombo,
+    difficulty: gameState.difficulty,
+  });
 
   // Check rank up
   if (newRank.name === oldRank.name) {
@@ -295,6 +314,16 @@ function loseGame(timeExpired = false) {
   }
 
   SoundEngine.lose();
+
+  // Check achievements (some like GRINDER can unlock on loss)
+  checkAchievements({
+    won: false,
+    moves: gameState.moves,
+    matchedPairs: gameState.matchedPairs,
+    seconds: gameState.seconds,
+    maxCombo: gameState.maxCombo,
+    difficulty: gameState.difficulty,
+  });
 
   setTimeout(() => {
     loseOverlay.classList.remove('hidden');

@@ -1,3 +1,33 @@
+// ── Combo Display ──
+function showCombo(combo) {
+  if (combo < 2) return;
+  const el = document.getElementById('combo-display');
+  if (!el) return;
+  el.textContent = combo + 'x COMBO';
+
+  // Color escalation
+  if (combo >= 5) {
+    el.style.color = '#ff0055';
+    el.style.textShadow = '0 0 20px rgba(255,0,85,0.8), 0 0 40px rgba(255,0,85,0.4)';
+  } else if (combo >= 3) {
+    el.style.color = '#ffff00';
+    el.style.textShadow = '0 0 20px rgba(255,255,0,0.8), 0 0 40px rgba(255,255,0,0.4)';
+  } else {
+    el.style.color = '';
+    el.style.textShadow = '';
+  }
+
+  el.classList.remove('hidden', 'combo-pop');
+  // Trigger reflow for re-animation
+  void el.offsetWidth;
+  el.classList.add('combo-pop');
+}
+
+function hideCombo() {
+  const el = document.getElementById('combo-display');
+  if (el) el.classList.add('hidden');
+}
+
 // ── Rank Up Overlay ──
 function showRankUp(rankName, callback) {
   const overlay = document.getElementById('rankup-overlay');
@@ -47,6 +77,8 @@ function initGame() {
   gameState.totalPairs = config.pairs;
   gameState.maxMoves = config.maxMoves;
   gameState.moves = 0;
+  gameState.combo = 0;
+  gameState.maxCombo = 0;
   gameState.seconds = 0;
   gameState.countdown = config.countdown || 0;
   gameState.timerStarted = false;
