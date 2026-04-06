@@ -232,6 +232,12 @@ function winGame() {
     return;
   }
 
+  // Daily challenge: custom win flow
+  if (gameState.mode === 'daily') {
+    winDailyChallenge();
+    return;
+  }
+
   hideCombo();
   const xpEarned = calculateXP(gameState.difficulty, gameState.moves, gameState.maxMoves, gameState.seconds, true, gameState.maxCombo);
   const oldRank = getRankForXP(playerStats.xp);
@@ -333,6 +339,12 @@ function loseGame(timeExpired = false) {
   if (gameState.mode === 'survival') {
     loseSurvival();
     return;
+  }
+
+  // Daily mode: hide daily HUD on loss
+  if (gameState.mode === 'daily') {
+    document.getElementById('daily-hud').classList.add('hidden');
+    document.body.classList.remove('daily-mode');
   }
 
   const xpEarned = calculateXP(gameState.difficulty, gameState.moves, gameState.maxMoves, gameState.seconds, false);

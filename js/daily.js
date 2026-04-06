@@ -1,0 +1,224 @@
+// ── Daily Challenge ──
+
+// Seeded PRNG (mulberry32) — deterministic shuffle from a date string
+function dailySeed(dateStr) {
+  let h = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    h = Math.imul(31, h) + dateStr.charCodeAt(i) | 0;
+  }
+  return function () {
+    h |= 0; h = h + 0x6D2B79F5 | 0;
+    let t = Math.imul(h ^ h >>> 15, 1 | h);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+function seededShuffle(array, rng) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Difficulty cycles by day-of-week (0=Sun)
+const DAILY_DIFFICULTIES = ['easy', 'medium', 'hard', 'extreme', 'hard', 'medium', 'easy'];
+
+function getTodayString() {
+  const d = new Date();
+  return d.getFullYear() + '-' +
+    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+    String(d.getDate()).padStart(2, '0');
+}
+
+function getDailyDifficulty() {
+  return DAILY_DIFFICULTIES[new Date().getDay()];
+}
+
+function isDailyCompleted() {
+  return playerStats.dailyLastDate === getTodayString();
+}
+
+function startDailyChallenge() {
+  const today = getTodayString();
+  const diffKey = getDailyDifficulty();
+  const config = difficulties[diffKey];
+
+  gameState.mode = 'daily';
+  gameState.difficulty = diffKey;
+
+  // Close modals
+  rulesModal.classList.add('hidden');
+  document.getElementById('back-to-game-btn').classList.add('hidden');
+
+  // Reset game state
+  gameState.flippedCards = [];
+  gameState.matchedPairs = 0;
+  gameState.totalPairs = config.pairs;
+  gameState.maxMoves = config.maxMoves;
+  gameState.moves = 0;
+  gameState.combo = 0;
+  gameState.maxCombo = 0;
+  gameState.seconds = 0;
+  gameState.countdown = 90;
+  gameState.timerStarted = false;
+  gameState.isLocked = false;
+  clearInterval(gameState.timerInterval);
+  document.body.classList.remove('countdown-critical', 'blitz-mode', 'survival-mode');
+  document.body.classList.add('daily-mode');
+  document.getElementById('survival-hud').classList.add('hidden');
+  document.getElementById('wave-clear-overlay').classList.add('hidden');
+  document.getElementById('survival-over-overlay').classList.add('hidden');
+
+  // Update HUD
+  movesDisplay.childNodes[0].textContent = '0';
+  movesLimit.textContent = '/' + config.maxMoves;
+  timerDisplay.textContent = formatTime(90);
+  winOverlay.classList.add('hidden');
+  loseOverlay.classList.add('hidden');
+  difficultyDisplay.textContent = 'DAILY';
+  particles.innerHTML = '';
+
+  const hudItem = movesDisplay.closest('.hud-item');
+  hudItem.classList.remove('moves-warning');
+
+  board.className = '';
+  board.classList.add(config.gridClass);
+  applySkin(playerStats.activeSkin);
+
+  // Show daily HUD
+  const dailyHud = document.getElementById('daily-hud');
+  if (dailyHud) {
+    dailyHud.classList.remove('hidden');
+    document.getElementById('daily-date').textContent = today;
+    document.getElementById('daily-diff').textContent = config.label;
+    document.getElementById('daily-streak').textContent = playerStats.dailyStreak || 0;
+  }
+
+  // Seeded deck — same puzzle for everyone today
+  const rng = dailySeed(today);
+  const rewardChars = getUnlockedRewardCharacters();
+  const allCharacters = [...characters, ...rewardChars];
+  const selected = seededShuffle(allCharacters, rng).slice(0, config.pairs);
+  const deck = seededShuffle([...selected, ...selected], rng);
+
+  board.innerHTML = '';
+  deck.forEach(char => board.appendChild(createCardElement(char)));
+
+  updateRankHUD();
+}
+
+function winDailyChallenge() {
+  clearInterval(gameState.timerInterval);
+  document.body.classList.remove('countdown-critical');
+  hideCombo();
+
+  const today = getTodayString();
+  const alreadyDone = isDailyCompleted();
+
+  // Streak logic
+  if (!alreadyDone) {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yStr = yesterday.getFullYear() + '-' +
+      String(yesterday.getMonth() + 1).padStart(2, '0') + '-' +
+      String(yesterday.getDate()).padStart(2, '0');
+
+    if (playerStats.dailyLastDate === yStr) {
+      playerStats.dailyStreak = (playerStats.dailyStreak || 0) + 1;
+    } else {
+      playerStats.dailyStreak = 1;
+    }
+    playerStats.dailyLastDate = today;
+    playerStats.dailyCompleted = (playerStats.dailyCompleted || 0) + 1;
+  }
+
+  // XP
+  const streakBonus = alreadyDone ? 0 : (playerStats.dailyStreak || 1) * 5;
+  const xpEarned = calculateXP(gameState.difficulty, gameState.moves, gameState.maxMoves, gameState.seconds, true, gameState.maxCombo) + streakBonus;
+
+  const oldRank = getRankForXP(playerStats.xp);
+  playerStats.xp += xpEarned;
+  playerStats.gamesPlayed++;
+  playerStats.gamesWon++;
+  playerStats.totalMatches = (playerStats.totalMatches || 0) + gameState.matchedPairs;
+  if (gameState.maxCombo > (playerStats.bestCombo || 0)) playerStats.bestCombo = gameState.maxCombo;
+  playerStats.unlockedSkins = getUnlockedSkins(playerStats.xp);
+  const newRank = getRankForXP(playerStats.xp);
+  playerStats.rank = newRank.name;
+  saveStats(playerStats);
+
+  // Show daily win overlay
+  const overlay = document.getElementById('daily-win-overlay');
+  if (!overlay) return;
+
+  document.getElementById('daily-win-date').textContent = today;
+  document.getElementById('daily-win-moves').textContent = gameState.moves;
+  document.getElementById('daily-win-time').textContent = formatTime(gameState.seconds);
+  document.getElementById('daily-win-streak').textContent = playerStats.dailyStreak || 1;
+  document.getElementById('daily-win-xp').textContent = '+' + xpEarned + ' XP';
+  if (streakBonus > 0) {
+    document.getElementById('daily-win-streak-bonus').textContent = '(+' + streakBonus + ' streak bonus)';
+  } else {
+    document.getElementById('daily-win-streak-bonus').textContent = alreadyDone ? '(already completed today)' : '';
+  }
+
+  SoundEngine.win();
+
+  checkAchievements({
+    won: true,
+    moves: gameState.moves,
+    matchedPairs: gameState.matchedPairs,
+    seconds: gameState.seconds,
+    maxCombo: gameState.maxCombo,
+    difficulty: gameState.difficulty,
+  });
+
+  if (newRank.name === oldRank.name) {
+    setTimeout(() => {
+      overlay.classList.remove('hidden');
+      spawnParticles();
+    }, 600);
+    updateRankHUD();
+    return;
+  }
+
+  showRankUp(newRank.name, () => {
+    overlay.classList.remove('hidden');
+    spawnParticles();
+  });
+  updateRankHUD();
+}
+
+function exitDaily() {
+  document.getElementById('daily-win-overlay').classList.add('hidden');
+  document.getElementById('daily-hud').classList.add('hidden');
+  document.body.classList.remove('daily-mode');
+  gameState.mode = 'classic';
+  clearInterval(gameState.timerInterval);
+  rulesModal.classList.remove('hidden');
+  updateDailyButton();
+}
+
+function retryDaily() {
+  document.getElementById('daily-win-overlay').classList.add('hidden');
+  startDailyChallenge();
+}
+
+function updateDailyButton() {
+  const btn = document.getElementById('daily-btn');
+  if (!btn) return;
+  const badge = document.getElementById('daily-badge');
+  if (isDailyCompleted()) {
+    if (badge) badge.classList.remove('hidden');
+  } else {
+    if (badge) badge.classList.add('hidden');
+  }
+  const streakEl = document.getElementById('daily-btn-streak');
+  if (streakEl) {
+    const streak = playerStats.dailyStreak || 0;
+    streakEl.textContent = streak > 0 ? streak + ' day streak' : 'No streak yet';
+  }
+}
