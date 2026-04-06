@@ -46,9 +46,33 @@ const REWARD_CARDS = [
     desc: 'The convergence of all paths. Master of the Net.',
     rarity: 'MYTHIC',
   },
+  // ── Survival & Daily Reward Cards ──
+  {
+    id: 'phoenix',
+    name: 'PHOENIX',
+    symbol: '\u2740',
+    color: 'cyan',
+    rank: '__SURVIVAL_10',
+    desc: 'Reborn in flame. Forged through 10 waves of survival.',
+    rarity: 'LEGENDARY',
+  },
+  {
+    id: 'oracle_prime',
+    name: 'ORACLE PRIME',
+    symbol: '\u2609',
+    color: 'pink',
+    rank: '__DAILY_30',
+    desc: 'Time-locked entity. Manifested after 30 days of devotion.',
+    rarity: 'MYTHIC',
+  },
 ];
 
 function isRewardUnlocked(rewardRank) {
+  // Survival milestone rewards
+  if (rewardRank === '__SURVIVAL_10') return (playerStats.bestWave || 0) >= 10;
+  // Daily streak rewards
+  if (rewardRank === '__DAILY_30') return (playerStats.dailyStreak || 0) >= 30;
+
   const rankOrder = RANKS.map(r => r.name);
   const playerRankIdx = rankOrder.indexOf(playerStats.rank);
   const rewardRankIdx = rankOrder.indexOf(rewardRank);
@@ -86,12 +110,15 @@ function renderCollectionModal() {
 
   grid.innerHTML = REWARD_CARDS.map(card => {
     const cardUnlocked = isRewardUnlocked(card.rank);
+    const lockLabel = card.rank === '__SURVIVAL_10' ? 'SURVIVE WAVE 10'
+      : card.rank === '__DAILY_30' ? '30-DAY STREAK'
+      : card.rank;
     return `
       <div class="reward-card reward-card-${card.id} ${cardUnlocked ? 'unlocked' : 'locked'}"
-           ${cardUnlocked ? `title="${card.desc}"` : `title="Unlock at rank: ${card.rank}"`}>
+           ${cardUnlocked ? `title="${card.desc}"` : `title="Unlock: ${lockLabel}"`}>
         <span class="reward-symbol">${card.symbol}</span>
         <span class="reward-name">${card.name}</span>
-        <span class="reward-rank">${cardUnlocked ? card.rarity : card.rank}</span>
+        <span class="reward-rank">${cardUnlocked ? card.rarity : lockLabel}</span>
       </div>
     `;
   }).join('');

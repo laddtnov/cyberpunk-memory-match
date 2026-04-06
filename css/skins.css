@@ -108,6 +108,91 @@
   50% { box-shadow: 0 0 25px rgba(0, 243, 255, 0.5), 0 0 40px rgba(255, 0, 85, 0.3), inset 0 0 15px rgba(157, 0, 255, 0.3); }
 }
 
+/* Survivor skin — blood-red crackling aura */
+.skin-survivor .card-back {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 0, 0, 0.15), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(255, 50, 0, 0.12), transparent 50%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 0, 0, 0.06) 0px,
+      transparent 1px,
+      transparent 3px
+    ),
+    rgba(10, 0, 0, 0.95);
+  border-color: rgba(255, 30, 0, 0.6);
+  box-shadow:
+    0 0 15px rgba(255, 0, 0, 0.4),
+    0 0 30px rgba(255, 50, 0, 0.2),
+    inset 0 0 10px rgba(255, 0, 0, 0.15);
+  animation: survivor-crackle 0.8s steps(2) infinite;
+}
+
+.skin-survivor .card-back::before {
+  color: rgba(255, 50, 0, 0.5);
+  content: "\2620";
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+}
+
+.skin-survivor .card:hover .card-back {
+  border-color: #ff1e00;
+  box-shadow:
+    0 0 25px rgba(255, 0, 0, 0.6),
+    0 0 45px rgba(255, 50, 0, 0.3),
+    inset 0 0 15px rgba(255, 0, 0, 0.25);
+}
+
+@keyframes survivor-crackle {
+  0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.4), 0 0 30px rgba(255, 50, 0, 0.2), inset 0 0 10px rgba(255, 0, 0, 0.15); }
+  50% { box-shadow: 0 0 20px rgba(255, 30, 0, 0.5), 0 0 35px rgba(255, 60, 0, 0.25), inset 0 0 12px rgba(255, 0, 0, 0.2); }
+}
+
+/* Chrono skin — purple time-warp shimmer */
+.skin-chrono .card-back {
+  background:
+    conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(157, 0, 255, 0.1),
+      rgba(100, 0, 200, 0.05),
+      rgba(191, 127, 255, 0.1),
+      rgba(157, 0, 255, 0.05),
+      rgba(120, 0, 220, 0.1)
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(157, 0, 255, 0.04) 0px,
+      transparent 2px,
+      transparent 6px
+    ),
+    rgba(5, 0, 12, 0.95);
+  border-color: rgba(157, 0, 255, 0.5);
+  box-shadow:
+    0 0 15px rgba(157, 0, 255, 0.3),
+    0 0 30px rgba(191, 127, 255, 0.15),
+    inset 0 0 10px rgba(157, 0, 255, 0.1);
+  animation: chrono-warp 4s linear infinite;
+}
+
+.skin-chrono .card-back::before {
+  color: rgba(191, 127, 255, 0.5);
+  content: "\231A";
+  text-shadow: 0 0 12px rgba(157, 0, 255, 0.5);
+}
+
+.skin-chrono .card:hover .card-back {
+  border-color: #bf7fff;
+  box-shadow:
+    0 0 25px rgba(157, 0, 255, 0.5),
+    0 0 45px rgba(191, 127, 255, 0.25),
+    inset 0 0 15px rgba(157, 0, 255, 0.2);
+}
+
+@keyframes chrono-warp {
+  0% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(15deg); }
+  100% { background-position: 100% 100%; filter: hue-rotate(0deg); }
+}
+
 /* ── Skin Modal ── */
 #skin-modal {
   position: fixed;
@@ -220,6 +305,30 @@
     rgba(5, 5, 8, 0.95);
   border-color: rgba(157, 0, 255, 0.5);
   box-shadow: 0 0 8px rgba(157, 0, 255, 0.3);
+}
+
+.skin-preview-survivor {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 0, 0, 0.25), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(255, 50, 0, 0.2), transparent 50%),
+    rgba(10, 0, 0, 0.95);
+  border-color: rgba(255, 30, 0, 0.5);
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}
+
+.skin-preview-chrono {
+  background:
+    conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(157, 0, 255, 0.2),
+      rgba(100, 0, 200, 0.1),
+      rgba(191, 127, 255, 0.2),
+      rgba(157, 0, 255, 0.1)
+    ),
+    rgba(5, 0, 12, 0.95);
+  border-color: rgba(157, 0, 255, 0.5);
+  box-shadow: 0 0 8px rgba(157, 0, 255, 0.3);
+  animation: chrono-warp 4s linear infinite;
 }
 
 .skin-name {

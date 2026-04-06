@@ -13,6 +13,19 @@
   .card-name {
     font-size: 10px;
   }
+
+  /* Hide desktop controls, show hamburger menu (covers iPad) */
+  .controls {
+    display: none;
+  }
+
+  #menu-btn {
+    display: flex;
+  }
+
+  #menu-overlay {
+    display: block;
+  }
 }
 
 @media (max-width: 768px) {
@@ -83,19 +96,6 @@
 
   .card-back::before {
     font-size: 28px;
-  }
-
-  /* Hide desktop controls, show hamburger menu */
-  .controls {
-    display: none;
-  }
-
-  #menu-btn {
-    display: flex;
-  }
-
-  #menu-overlay {
-    display: block;
   }
 
   #skin-grid {

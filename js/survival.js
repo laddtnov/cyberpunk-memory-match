@@ -97,6 +97,17 @@ function winSurvivalWave() {
 
   SoundEngine.match();
 
+  // Check achievements after each wave (wave_rider, unkillable can trigger mid-run)
+  checkAchievements({
+    won: true,
+    moves: gameState.moves,
+    matchedPairs: gameState.matchedPairs,
+    seconds: gameState.seconds,
+    maxCombo: gameState.maxCombo,
+    difficulty: gameState.difficulty,
+    isBlitz: false,
+  });
+
   // Show wave clear overlay
   showWaveClear(gameState.survivalWave, wavePoints + comboBonus, () => {
     gameState.survivalWave++;
@@ -129,6 +140,17 @@ function loseSurvival() {
   saveStats(playerStats);
 
   SoundEngine.lose();
+
+  // Check achievements on survival loss too
+  checkAchievements({
+    won: false,
+    moves: gameState.moves,
+    matchedPairs: gameState.matchedPairs,
+    seconds: gameState.seconds,
+    maxCombo: gameState.maxCombo,
+    difficulty: gameState.difficulty,
+    isBlitz: false,
+  });
 
   // Show survival game over
   showSurvivalGameOver(wave, score, xpEarned);

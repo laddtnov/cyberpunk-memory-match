@@ -46,6 +46,41 @@ const ACHIEVEMENTS = [
     desc: 'Play 50 games total',
     check: (state, stats) => stats.gamesPlayed >= 50,
   },
+  {
+    id: 'wave_rider',
+    name: 'WAVE RIDER',
+    symbol: '\u2601',
+    desc: 'Reach Wave 5 in Survival Mode',
+    check: (state, stats) => (stats.bestWave || 0) >= 5,
+  },
+  {
+    id: 'unkillable',
+    name: 'UNKILLABLE',
+    symbol: '\u2694',
+    desc: 'Reach Wave 10 in Survival Mode',
+    check: (state, stats) => (stats.bestWave || 0) >= 10,
+  },
+  {
+    id: 'devoted',
+    name: 'DEVOTED',
+    symbol: '\u2739',
+    desc: 'Maintain a 7-day Daily Challenge streak',
+    check: (state, stats) => (stats.dailyStreak || 0) >= 7,
+  },
+  {
+    id: 'daily_warrior',
+    name: 'DAILY WARRIOR',
+    symbol: '\u2609',
+    desc: 'Complete 30 Daily Challenges',
+    check: (state, stats) => (stats.dailyCompleted || 0) >= 30,
+  },
+  {
+    id: 'blitz_ace',
+    name: 'BLITZ ACE',
+    symbol: '\u23F1',
+    desc: 'Win a Blitz game on Hard or Extreme',
+    check: (state) => state.won && state.isBlitz && (state.difficulty === 'hard' || state.difficulty === 'extreme'),
+  },
 ];
 
 function loadAchievements() {

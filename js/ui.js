@@ -185,7 +185,7 @@ function closeDifficultySelect() {
 
 // ── Card Skins ──
 function applySkin(skinName) {
-  board.classList.remove('skin-default', 'skin-hologram', 'skin-corrupted', 'skin-gold', 'skin-elite');
+  board.classList.remove('skin-default', 'skin-hologram', 'skin-corrupted', 'skin-gold', 'skin-elite', 'skin-survivor', 'skin-chrono');
   board.classList.add('skin-' + skinName);
 }
 
@@ -213,19 +213,24 @@ function renderSkinModal() {
     { id: 'corrupted', name: 'CORRUPTED',     rank: 'SPECIALIST',      desc: 'Red glitch pattern' },
     { id: 'gold',      name: 'GOLD CIRCUIT',  rank: 'GHOST',           desc: 'Gold circuit-board lines' },
     { id: 'elite',     name: 'ELITE NEON',    rank: 'NETRUNNER_ELITE', desc: 'Ultimate neon glow' },
+    { id: 'survivor',  name: 'SURVIVOR',      rank: '__SURVIVAL_5',    desc: 'Blood-red crackling aura' },
+    { id: 'chrono',    name: 'CHRONO',        rank: '__DAILY_7',       desc: 'Purple time-warp shimmer' },
   ];
 
   grid.innerHTML = skins.map(skin => {
     const unlocked = playerStats.unlockedSkins.includes(skin.id);
     const active = playerStats.activeSkin === skin.id;
     const isDisabled = !unlocked;
+    const lockLabel = skin.rank === '__SURVIVAL_5' ? 'Survive Wave 5'
+      : skin.rank === '__DAILY_7' ? '7-Day Streak'
+      : 'Unlock at ' + skin.rank;
     return `
       <button class="skin-item ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''}"
               onclick="${unlocked ? `selectSkin('${skin.id}')` : ''}"
               ${isDisabled ? 'disabled' : ''}>
         <div class="skin-preview skin-preview-${skin.id}"></div>
         <span class="skin-name">${skin.name}</span>
-        <span class="skin-desc">${unlocked ? skin.desc : 'Unlock at ' + skin.rank}</span>
+        <span class="skin-desc">${unlocked ? skin.desc : lockLabel}</span>
       </button>
     `;
   }).join('');

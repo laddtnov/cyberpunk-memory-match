@@ -174,6 +174,7 @@ function winDailyChallenge() {
     seconds: gameState.seconds,
     maxCombo: gameState.maxCombo,
     difficulty: gameState.difficulty,
+    isBlitz: false,
   });
 
   if (newRank.name === oldRank.name) {

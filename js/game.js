@@ -277,6 +277,7 @@ function winGame() {
     seconds: gameState.seconds,
     maxCombo: gameState.maxCombo,
     difficulty: gameState.difficulty,
+    isBlitz: gameState.mode === 'blitz',
   });
 
   // Check rank up
@@ -377,6 +378,7 @@ function loseGame(timeExpired = false) {
     seconds: gameState.seconds,
     maxCombo: gameState.maxCombo,
     difficulty: gameState.difficulty,
+    isBlitz: gameState.mode === 'blitz',
   });
 
   setTimeout(() => {

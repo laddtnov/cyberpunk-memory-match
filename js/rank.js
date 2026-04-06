@@ -46,5 +46,13 @@ function getUnlockedSkins(xp) {
       skins.push(r.skin);
     }
   }
+  // Survival reward skin: reach wave 5
+  if ((playerStats.bestWave || 0) >= 5 && !skins.includes('survivor')) {
+    skins.push('survivor');
+  }
+  // Daily reward skin: 7-day streak
+  if ((playerStats.dailyStreak || 0) >= 7 && !skins.includes('chrono')) {
+    skins.push('chrono');
+  }
   return skins;
 }
